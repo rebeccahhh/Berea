@@ -1,0 +1,40 @@
+int alu (int x, int y, bool *flags, bool *zr, bool *ng) {
+  /* this function is to create a virtual Arithmetic Logic Unit. The above line
+  passes in the neccesary variables to achieve the arithmetic and to */
+    show_alu_flags(flags);
+    int out;
+    if (flags[0] == true){ /*if zx is true it will output x as 0*/
+      x = 0; /*x = zero*/
+    }
+    if (flags[1] == true){ /* if nx is true it will output x as not x*/
+      x = ~x; /*out = not x */
+    }
+    if (flags[2] == true){ /* if zy is true it will output y as 0*/
+      y = 0; // y is zero
+    }
+    if (flags[3] == true){ /* if ny is true it will output y as not y*/ 
+      y = ~y; /*out = not y */ 
+    }
+    if (flags[4] == true){ /* if f is true it will output x and y added together*/
+      out = x + y; /* out = x+y */
+    }
+    else{ /* if none of the above are true, then it will and x and y together */
+      out = x & y; /* out = x and y */ 
+    }
+    if (flags[5] == true){ /* if no is true then out will actually be not out */ 
+      out = ~out; /* out= not out */ 
+    }
+    if (out = 0){
+      *zr = true; /* if the output is 0 then zr will be true */
+      printf("ZR: true"); // this is an attempt to print the results of this statement
+    }
+    if (out < 0){
+      *ng = true; /* if the output is less than 0 ng will be true */
+      printf("NG: true"); // this is an attempt to print the results of this statement
+    }
+    return *zr; // I added this later to return the zr boolean value.
+    return *ng; // also added later to return the bool value of ng, I had forgotten to return both.
+    return out; // this returns the output. 
+
+  /* Do the calculations of the ALU here. */
+}

@@ -1,0 +1,28 @@
+int main () {
+  /* Variable declarations */
+  bool flags[ALU_FLAGS] = {false,true,false,true,false,true}; // creates a variable that calls the earlier declaration of flags
+  bool *zr; // creates a boolean pointer variable for the output of the zr value
+  bool *ng; // creates a bool pointer variable for the output of the ng value
+  int alu_result; // creates the int variable to be used later
+  int x, y; // creates the variables for the 2 numerals to be sent through the ALU
+  
+  /* Read in values from the user for x and y. */
+  printf("Enter x: "); // prompts user for information and sets into x
+  scanf("%i", &x); //& points to x and inputs information into that variable
+  //printf("%i", x); // could print the users information back to them
+  
+  printf("Enter y: "); // prompts user for information and sets into y
+  scanf("%i", &y); //& points to y and inputs information into that variable
+  //printf("%i", y); // could print the users information back to them
+  
+  /* Do computations */
+  alu_result = alu(x, y, flags, zr, ng); //this variable calls the alu function
+
+  /* Print result */
+  printf ("Result: %i\n", alu_result); //this print statement calls the variable that calls the alu function and prints it.
+
+  /* End of main. Return a value that indicates
+   * that no errors have occurred.
+   */
+  return 0;
+}

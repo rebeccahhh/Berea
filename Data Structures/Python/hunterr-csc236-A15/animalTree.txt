@@ -1,0 +1,10 @@
+Question:
+"Does it have 4 legs?"
+Question:
+"Does it have Fur?"
+Guess:
+"dog"
+Guess:
+"hippo"
+Guess:
+"dolphin"

@@ -1,0 +1,19 @@
+#!/bin/bash
+
+ASM=$1
+
+echo "Assembling the file" $ASM "into a ROM."
+./tinyasm -r $ASM
+echo ${ASM%.asm}
+
+if [ -f rom.h ]
+then
+  echo "Building the CPU..."
+  # Always does a "clean"
+  make
+  if [ -f hackcpu ]
+  then
+    echo "Running the CPU with the assembled ROM."
+    ./hackcpu
+  fi
+fi
