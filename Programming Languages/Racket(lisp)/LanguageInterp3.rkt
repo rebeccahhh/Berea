@@ -1,0 +1,71 @@
+#lang racket
+(require test-engine/racket-tests)
+
+(struct DP (left right))
+
+(define program-one '(DASPLUS 3 5))
+(define program-two '(DASPLUS 0 -1))
+(define program-three '(DASMAL 2 3))
+(define program-four '(DASGETEILT 6 3))
+(define program-five '(DASMINUS (DASMAL 2 3) 3))
+(define program-six '(DASMINUS 5 3))
+(define program-seven '(DASMAL (DASMAL 2 1) (DASMAL 1 3)))
+(define program-eight '(DASMINUS 5 3))
+(define program-nine '(DASMINUS 5 3))
+
+(struct structplus (left right) #:transparent)
+(struct structminus (left right) #:transparent)
+(struct structmal (left right) #:transparent) ;;multiply
+(struct structgeteilt (left right) #:transparent) ;;divide
+
+;; CONTRACT
+;; parse : concrete-syntax -> abstract-syntax
+;; take the info from program-one and change it's syntax
+(define (parse concrete)
+  (cond
+    ;;check if it's already a number, if it is, return that
+    [(number? concrete) concrete]
+    ;;check if its addition, subtraction, multiplication, and division.
+    [(equal? (first concrete) 'DASPLUS) (structplus (parse(second concrete)) (parse(third concrete)))]
+    [(equal? (first concrete) 'DASMINUS) (structminus (parse (second concrete)) (parse(third concrete)))]
+    [(equal? (first concrete) 'DASMAL) (structmal (parse(second concrete)) (parse(third concrete)))]
+    [(equal? (first concrete) 'DASGETEILT) (structgeteilt (parse(second concrete)) (parse(third concrete)))]
+    [else
+     "parsing error"]
+  )
+)
+
+;; CONTRACT
+;; interp : abstract-syntax -> number
+;; take the info from parse, and interpret it so that it can be added.
+(define (interp abstract)
+  (cond
+    ;;check if it's a number, if it is, return that
+    [(number? abstract) abstract]
+    ;;check if it's an addion, subtraction, multiplication, or division structure, then do the appropriate action
+    [(structplus? abstract)
+     (+ (interp(structplus-left abstract))
+     (interp(structplus-right abstract)))]
+    [(structminus? abstract)
+     (- (interp(structminus-left abstract))
+     (interp(structminus-right abstract)))]
+    [(structmal? abstract)
+     (* (interp(structmal-left abstract))
+     (interp(structmal-right abstract)))]
+    [(structgeteilt? abstract)
+     (/ (interp(structgeteilt-left abstract))
+     (interp(structgeteilt-right abstract)))]
+    [else
+     "interpreter error"]
+   )
+)
+(check-expect (interp (parse program-one)) 8)
+(check-expect (interp (parse program-two)) -1)
+(check-expect (interp (parse program-three)) 6)
+(check-expect (interp (parse program-four)) 2)
+(check-expect (interp (parse program-five)) 3)
+(check-expect (interp (parse program-six)) 2)
+(check-expect (interp (parse program-seven)) 6)
+(check-expect (interp (parse program-eight)) 2)
+
+(test)

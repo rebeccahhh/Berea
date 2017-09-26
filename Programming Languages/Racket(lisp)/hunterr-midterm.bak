@@ -1,0 +1,10 @@
+#lang racket
+(define (generate-nums num)
+  (map (lambda (num)
+         (+ 1 num))
+  ))
+
+
+
+(check-expect(generate-nums 4) '(1 2 3 4))
+

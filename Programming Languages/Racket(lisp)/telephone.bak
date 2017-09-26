@@ -1,0 +1,73 @@
+#lang racket
+;; The number-to-letter map.
+(define keypad
+  (hash 0 '()
+        1 '()
+        2 '("A" "B" "C")
+        3 '("D" "E" "F")
+        4 '("G" "H" "I")
+        5 '("J" "K" "L")
+        6 '("M" "N" "O")
+        7 '("P" "Q" "R" "S")
+        8 '("T" "U" "V")
+        9 '("W" "X" "Y" "Z")
+        ))
+
+(define (get-list-of-letters n)
+  (hash-ref keypad n))
+
+;; CONTRACT
+;; number->list-of-numbers : number -> list-of numbers
+;; PURPOSE
+;; Takes a number and returns that number broken into
+;; a list by tens places. For example,
+;; 123 becomes '(1 2 3). Note odd construction of recursion
+;; so that the number comes out in-order.
+(define (number->list-of-numbers n)
+  (cond
+    [(zero? (quotient n 10)) (list n)]
+    [else
+     (append (number->list-of-numbers (quotient n 10))
+             (list (remainder n 10)))
+     ]))
+
+
+
+
+
+
+
+
+
+
+
+
+;; CONTRACT
+;; lon->lol : list-of numbers -> list-of numbers
+;; PURPOSE
+;; Takes a list of numbers and returns all the letter lists
+;; that map to those numbers. For example, the list
+;; '(2 3) returns '(("A" "B" "C") ("D" "E" "F"))
+(define (lon->lol lon)
+  (cond
+    [(empty? lon) '()]
+    [else
+     (define letters (get-list-of-letters (first lon)))
+     (cond
+       [(empty? letters)
+        (lon->lol (rest lon))]
+       [else (cons letters
+              (lon->lol (rest lon)))])
+    ]))
+
+;; CONTRACT
+;; gaga : number -> list-of strings
+;; Takes a number and returns all possible letter combinations
+;; from a numeric keypad. For example,
+;; 8675309 returns 1296 results.
+;; NOTE: The function gaga skips the numbers 0 and 1, because
+;; no letters live there.
+;;(define (gaga n)
+;;  (gorilla-glue
+;;   (lon->lol
+;;   (number->list-of-numbers n))))

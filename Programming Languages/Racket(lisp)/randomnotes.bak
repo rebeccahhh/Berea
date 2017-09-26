@@ -1,0 +1,114 @@
+#lang racket
+(require test-engine/racket-tests)
+
+(define (replace ls sym)
+  (cond
+    [(empty? ls) '()]
+    [else
+     (cond
+       [(even? (first ls)) (cons sym (replace (rest ls) sym))]
+       [else
+        (cons (first ls) (replace (rest ls) sym))
+       ]
+     )
+    ]
+  )
+)
+(check-expect (replace '(1 2 3 4 5) 'fish) '(1 fish 3 fish 5))
+
+(struct tree (node-val node-left node-right) #:transparent)
+
+(define (tree-repl N sym)
+  (cond
+    [(empty-node? N) (empty-node)]
+    [(even? (node-val N))
+     (node sym
+           (tree-repl (node-left N) sym)
+           (tree-repl (node-right N) sym))]
+    [else
+     (node (node-val N)
+           (tree-repl (node-left N) sym)
+           (tree-repl (node-right N) sym))]
+  )
+)
+(check-expect (tree-repl tree 'fish) newtree)
+
+
+
+
+
+(struct DPl (left right)
+  #:transparent)
+(struct DMi (left right)
+  #:transparent)
+(struct DDi (left right)
+  #:transparent)
+(struct DMu (left right)
+  #:transparent)
+
+(struct DI (test true false)
+  #:transparent)
+(struct DB (id bound-exp body)
+  #:transparent)
+(struct DP (left right)
+  #:transparent)
+
+(define (first-is? ls sym)
+  (equal? (first ls) sym))
+
+(define (parse conc)
+  (cond
+    [(number? conc) conc]
+    [(symbol? conc) conc]
+    [(first-is? conc 'DASPLUS)
+     (DPl (parse (second conc))
+          (parse (third conc)))]
+    [(first-is? conc 'DASMINUS)
+     (DMi (parse (second conc))
+          (parse (third conc)))]
+    [(first-is? conc 'DASDIV)
+     (DDi (parse (second conc))
+          (parse (third conc)))]
+    [(first-is? conc 'DASMULT)
+     (DMu (parse (second conc))
+          (parse (third conc)))]
+
+    [(first-is? conc 'DASIF0)
+     (DI (parse (second conc))
+         (parse (third conc))
+         (parse (fourth conc)))]
+    
+    ;; other stuff in parse, like IF0, etc...
+    [(first-is? conc 'DASBIND)
+     (DB (first (second conc))
+         (parse (second (second conc)))
+         (parse (third conc)))]
+    ))
+
+(define prog1 '{DASBIND {x 5}
+                 {DASPLUS 3 x}})
+(define prog2
+  '{DASBIND {x 5}
+     {DASBIND {y 3}
+       {DASPLUS x y}}})
+
+(define prog3
+  '{DASBIND {x {DASPLUS 3 5}}
+     {DASMINUS x 0}})
+
+
+;; subst : AST symbol expression -> AST 
+(define (subst abstract symbol expression)
+  '...)
+
+
+
+
+
+
+
+
+
+
+
+(test)

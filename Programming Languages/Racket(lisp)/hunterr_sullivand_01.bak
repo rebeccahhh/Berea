@@ -1,0 +1,29 @@
+#lang racket
+;; We must include the test engine.
+(require test-engine/racket-tests)
+
+;; http://docs.racket-lang.org/test-engine/index.html
+;; has more information about the check- forms.
+
+;; add-two
+(define (add-two a b)
+  (+ a b))
+
+(check-expect (add-two 0 0) 0)
+(check-expect (add-two 0 1) 1)
+(check-expect (add-two 22 3847383) 3847405)
+
+;; even-or-odd
+(define (even-or-odd n)
+  (if (even? n)
+      "even"
+      "odd"))
+
+(check-expect (even-or-odd 3) "odd")
+(check-expect (even-or-odd 0) "even")
+(check-expect (even-or-odd 123948771023747982) "even")
+
+;; Run all the tests
+;; We do that by invoking the test function, which
+;; is provided by the racket-tests module.
+(test)

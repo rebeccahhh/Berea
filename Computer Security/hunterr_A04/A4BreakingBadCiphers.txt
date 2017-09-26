@@ -1,0 +1,44 @@
+CSC 350 - Computer Security
+A4: Breaking Bad Ciphers
+09/22/2016
+A4: Breaking Bad Ciphers
+This homework assignment should be completed alone, but you are encouraged to brainstorm ideas with classmates. 
+Learning Objectives
+* Explore the process of breaking a cipher
+________________
+
+
+  
+
+
+Source: https://goo.gl/ZkPk9S
+Background
+In T5, you explored creating and using simple ciphers to encrypt data. However, simple ciphers are, by and large, crackable. Some are easier than others, but all are fundamentally breakable, with the exception of one-time pads. 
+
+
+You, the crafty hacker you are, found my super-secret directory floating around the Internet. Oh nos!
+
+
+However, being the diligent computer security expert I am, I’ve encrypted my file using a cipher. A really, really good cipher. So good, I used the same cipher on all the files.
+
+
+Time to prove yourself. Break my cipher, read my super-secret documents, and take me down!
+What’s this assignment really about?
+It’s not about cracking the cipher. It’s about the process. As you try different things, write down what you are trying. I am interested in seeing what process you follow to get to the solution, not the fact that you solve the puzzle or not. You can succeed at this assignment and never break the cipher. As the great philosopher Drake said:
+
+
+“Sometimes it's the journey that teaches you a lot about your destination.”
+Some Hints and Suggestions
+* I would suggest starting with the small cipher, and trying to solve in on paper first. Once you’ve cracked the code, write the Python code to do it automatically for the larger cipher.
+* The cipher is only alphanumeric characters, all lowercase, no spaces or punctuation.
+* It’s not a one-time pad.
+* The plaintext is readable if you get it right (i.e., it’s not Greek).
+* You can research ways to break ciphers. I encourage it! However, cite your sources for anything you try.
+* Discuss ideas with your classmates. However, if you solve the cipher, don’t give it away. 
+
+
+Lastly, write a page or so reflection on the process you went through to crack the cipher. What things did you try? Where did you start? Where did you get stuck? How’d you get to the solution? Remember, it’s about the process, not the solution. 
+Submission Instructions
+1. Save your code as A4_username.py. Replace username with your username. For example, the my document would be named A4_heggens.py
+2. Save your reflection document at A4_username.docx.  Replace username with your username. 
+3. Upload the file to Moodle by the due date listed on the course website.
